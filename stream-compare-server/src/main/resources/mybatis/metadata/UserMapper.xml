@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sugon.gsq.scs.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.sugon.gsq.scs.entity.UserEntity" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="enabled" property="enabled" jdbcType="BIT" />
+    <result column="default_project_id" property="defaultProjectId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="last_active_at" property="lastActiveAt" jdbcType="DATE" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.sugon.gsq.scs.entity.UserEntity" extends="BaseResultMap" >
+    <result column="extra" property="extra" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, enabled, default_project_id, created_at, last_active_at
+  </sql>
+  <sql id="Blob_Column_List" >
+    extra
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sugon.gsq.scs.entity.UserEntity" >
+    insert into user (id, enabled, default_project_id,
+      created_at, last_active_at, extra
+      )
+    values (#{id,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT}, #{defaultProjectId,jdbcType=VARCHAR},
+      #{createdAt,jdbcType=TIMESTAMP}, #{lastActiveAt,jdbcType=DATE}, #{extra,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sugon.gsq.scs.entity.UserEntity" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="defaultProjectId != null" >
+        default_project_id,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="lastActiveAt != null" >
+        last_active_at,
+      </if>
+      <if test="extra != null" >
+        extra,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="defaultProjectId != null" >
+        #{defaultProjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastActiveAt != null" >
+        #{lastActiveAt,jdbcType=DATE},
+      </if>
+      <if test="extra != null" >
+        #{extra,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sugon.gsq.scs.entity.UserEntity" >
+    update user
+    <set >
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="defaultProjectId != null" >
+        default_project_id = #{defaultProjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastActiveAt != null" >
+        last_active_at = #{lastActiveAt,jdbcType=DATE},
+      </if>
+      <if test="extra != null" >
+        extra = #{extra,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sugon.gsq.scs.entity.UserEntity" >
+    update user
+    set enabled = #{enabled,jdbcType=BIT},
+      default_project_id = #{defaultProjectId,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      last_active_at = #{lastActiveAt,jdbcType=DATE},
+      extra = #{extra,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sugon.gsq.scs.entity.UserEntity" >
+    update user
+    set enabled = #{enabled,jdbcType=BIT},
+      default_project_id = #{defaultProjectId,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      last_active_at = #{lastActiveAt,jdbcType=DATE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

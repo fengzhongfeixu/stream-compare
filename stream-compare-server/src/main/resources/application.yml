@@ -1,0 +1,119 @@
+server:
+  port: 8801
+
+spring:
+  application:
+    name: stream-compare-server
+
+#  redis:
+#    database: 0
+#    host: localhost
+#    port: 6379
+#    password:
+#    timeout: 5000
+
+  datasource:
+    metadata:
+      url: jdbc:mysql://10.0.13.216:3306/keystone?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false
+      username: root
+      password: Sugon_456
+      driver-class-name: com.mysql.jdbc.Driver
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filter:
+        commons-log:
+          connection-logger-name: stat,wall,log4j
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+    stream:
+      url: jdbc:mysql://127.0.0.1:3306/stream?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false
+      username: root
+      password: admin1234@sugon
+      driver-class-name: com.mysql.jdbc.Driver
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filter:
+        commons-log:
+          connection-logger-name: stat,wall,log4j
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+jhipster:
+  http:
+    version: V_1_1
+  cache:
+    ehcache:
+      time-to-live-seconds: 3600
+      max-entries: 100
+  cors:
+    allowed-origins: "*"
+    allowed-methods: "*"
+    allowed-headers: "*"
+    exposed-headers: "Authorization"
+    allow-credentials: true
+    max-age: 1800
+  security:
+    authentication:
+      jwt:
+        secret: 58b9f98290c1e5d6cc62287c8671bc2b890a8bcc
+        token-validity-in-seconds: 86400
+        token-validity-in-seconds-for-remember-me: 2592000
+  mail:
+    from: myApp@localhost
+    base-url: http://127.0.0.1:8080
+  metrics:
+    jmx.enabled: true
+    graphite:
+      enabled: false
+      host: localhost
+      port: 2003
+      prefix: myApp
+    prometheus:
+      enabled: false
+      endpoint: /prometheusMetrics
+    logs:
+      enabled: false
+      report-frequency: 60
+  logging:
+    logstash:
+      enabled: false
+      host: localhost
+      port: 5000
+      queue-size: 512
+
+storm:
+  nimbus:
+    nodes:
+    - slaver01.sugon.com:6627
+    - slaver05.sugon.com:6627
+  jar:
+    #path: ../lib/stream-compare-plugin-2.0.1-RELEASE.jar
+    path: C:/Users/Administrator/Desktop/stream-compare-plugin-2.0.1-RELEASE.jar
+  bolt:
+    plugin: com.sugon.gsq.storm.bolt.CompareBoltPlus
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://admin:admin@10.0.13.99:8761/eureka/

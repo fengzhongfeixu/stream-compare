@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sugon.gsq.scs.dao.StreamKafkaSourceDAO">
+  <resultMap id="BaseResultMap" type="com.sugon.gsq.scs.entity.stream.StreamKafkaSourceEntity">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="belongUser" jdbcType="VARCHAR" property="belongUser" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="zkServer" jdbcType="VARCHAR" property="zkServer" />
+    <result column="zkRoot" jdbcType="VARCHAR" property="zkRoot" />
+    <result column="topic" jdbcType="VARCHAR" property="topic" />
+    <result column="metadata" jdbcType="VARCHAR" property="metadata" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="updateDate" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, belongUser, `name`, zkServer, zkRoot, topic, metadata, createDate, updateDate
+  </sql>
+  <select id="selectByExample" parameterType="com.sugon.gsq.scs.entity.stream.StreamKafkaSourceEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from s_kafka_source
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_kafka_source
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from s_kafka_source
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sugon.gsq.scs.entity.stream.StreamKafkaSourceEntityExample">
+    delete from s_kafka_source
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sugon.gsq.scs.entity.stream.StreamKafkaSourceEntity">
+    insert into s_kafka_source (id, belongUser, `name`, 
+      zkServer, zkRoot, topic, 
+      metadata, createDate, updateDate
+      )
+    values (#{id,jdbcType=VARCHAR}, #{belongUser,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{zkServer,jdbcType=VARCHAR}, #{zkRoot,jdbcType=VARCHAR}, #{topic,jdbcType=VARCHAR}, 
+      #{metadata,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sugon.gsq.scs.entity.stream.StreamKafkaSourceEntity">
+    insert into s_kafka_source
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="belongUser != null">
+        belongUser,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="zkServer != null">
+        zkServer,
+      </if>
+      <if test="zkRoot != null">
+        zkRoot,
+      </if>
+      <if test="topic != null">
+        topic,
+      </if>
+      <if test="metadata != null">
+        metadata,
+      </if>
+      <if test="createDate != null">
+        createDate,
+      </if>
+      <if test="updateDate != null">
+        updateDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="belongUser != null">
+        #{belongUser,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="zkServer != null">
+        #{zkServer,jdbcType=VARCHAR},
+      </if>
+      <if test="zkRoot != null">
+        #{zkRoot,jdbcType=VARCHAR},
+      </if>
+      <if test="topic != null">
+        #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="metadata != null">
+        #{metadata,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sugon.gsq.scs.entity.stream.StreamKafkaSourceEntityExample" resultType="java.lang.Long">
+    select count(*) from s_kafka_source
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update s_kafka_source
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongUser != null">
+        belongUser = #{record.belongUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zkServer != null">
+        zkServer = #{record.zkServer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zkRoot != null">
+        zkRoot = #{record.zkRoot,jdbcType=VARCHAR},
+      </if>
+      <if test="record.topic != null">
+        topic = #{record.topic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metadata != null">
+        metadata = #{record.metadata,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        createDate = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        updateDate = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update s_kafka_source
+    set id = #{record.id,jdbcType=VARCHAR},
+      belongUser = #{record.belongUser,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      zkServer = #{record.zkServer,jdbcType=VARCHAR},
+      zkRoot = #{record.zkRoot,jdbcType=VARCHAR},
+      topic = #{record.topic,jdbcType=VARCHAR},
+      metadata = #{record.metadata,jdbcType=VARCHAR},
+      createDate = #{record.createDate,jdbcType=TIMESTAMP},
+      updateDate = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sugon.gsq.scs.entity.stream.StreamKafkaSourceEntity">
+    update s_kafka_source
+    <set>
+      <if test="belongUser != null">
+        belongUser = #{belongUser,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="zkServer != null">
+        zkServer = #{zkServer,jdbcType=VARCHAR},
+      </if>
+      <if test="zkRoot != null">
+        zkRoot = #{zkRoot,jdbcType=VARCHAR},
+      </if>
+      <if test="topic != null">
+        topic = #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="metadata != null">
+        metadata = #{metadata,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        createDate = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        updateDate = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sugon.gsq.scs.entity.stream.StreamKafkaSourceEntity">
+    update s_kafka_source
+    set belongUser = #{belongUser,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      zkServer = #{zkServer,jdbcType=VARCHAR},
+      zkRoot = #{zkRoot,jdbcType=VARCHAR},
+      topic = #{topic,jdbcType=VARCHAR},
+      metadata = #{metadata,jdbcType=VARCHAR},
+      createDate = #{createDate,jdbcType=TIMESTAMP},
+      updateDate = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

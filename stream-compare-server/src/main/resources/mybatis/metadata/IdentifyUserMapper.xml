@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sugon.gsq.scs.mapper.IdentifyUserMapper" >
+  <resultMap id="BaseResultMap" type="com.sugon.gsq.scs.entity.IdentifyUserEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="domain_id" property="domainId" jdbcType="VARCHAR" />
+    <result column="default_project_id" property="defaultProjectId" jdbcType="VARCHAR" />
+    <result column="name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="passWord" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+    <select id="findByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        b.local_user_id AS id ,
+        a.user_id AS user_id,
+        a.`name` AS name,
+        a.domain_id AS domain_id,
+        c.default_project_id  AS default_project_id,
+        b.`password` AS password,
+        b.created_at AS created_at
+        FROM
+        `local_user` AS a ,`password` AS b , `user` AS  c
+        WHERE
+        a.id = b.id
+        AND
+        a.user_id = c.id
+        AND
+        a.`name` = #{name};
+    </select>
+
+</mapper>

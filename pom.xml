@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.7.RELEASE</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.sugon.gsq</groupId>
+    <artifactId>stream-compare</artifactId>
+    <packaging>pom</packaging>
+    <version>2.0.1-RELEASE</version>
+
+    <modules>
+        <module>stream-compare-server</module>
+        <module>stream-compare-plugin</module>
+        <module>stream-compare-push</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 流对比总线服务 -->
+            <dependency>
+                <groupId>com.sugon.gsq</groupId>
+                <artifactId>stream-compare-server</artifactId>
+                <version>2.0.1-RELEASE</version>
+            </dependency>
+            <!-- storm比对插件 -->
+            <dependency>
+                <groupId>com.sugon.gsq</groupId>
+                <artifactId>stream-compare-plugin</artifactId>
+                <version>2.0.1-RELEASE</version>
+            </dependency>
+            <!-- 比对结果信息推送 -->
+            <dependency>
+                <groupId>com.sugon.gsq</groupId>
+                <artifactId>stream-compare-push</artifactId>
+                <version>2.0.1-RELEASE</version>
+            </dependency>
+            <!-- eureka 服务注册中心 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-eureka</artifactId>
+                <version>1.3.0.RELEASE</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="icos/miss.ico" />
+    <title>系统傻掉了</title>
+</head>
+<style>
+    div{
+        width: 1200px;
+        margin: 0 auto;
+    }
+    span{
+        font-size: 8em;
+        font-family: '微软雅黑  ';
+        font-weight: 800;
+        letter-spacing: 20px;
+        position:relative;
+    }
+    span:before,span:after{
+        content:attr(data-font);
+        position:absolute;
+        left:0;
+        top:0;
+        transform-origin: left;
+        transition: all 1s;
+    }
+    span:before{
+        color: rgba(0,0,0,.5);
+    }
+    span:after{
+        color: #FFD700;
+    }
+    span:hover:after{
+        transform: rotateY(-30deg) skewY(10deg);
+    }
+    span:hover:before{
+        transform: rotateY(-45deg) skewY(25deg) scaleX(1.5);
+    }
+
+    p{
+        font-size: 1em;
+        font-family: '微软雅黑';
+        color: #9932CC;
+    }
+</style>
+<body style="padding-top:5%;">
+    <div style="text-align: center;width: auto;height: auto;margin: auto">
+        <span data-font='系'>系</span>
+        <span data-font='统'>统</span>
+        <span data-font='傻'>傻</span>
+        <span data-font='掉'>掉</span>
+        <span data-font='了'>了</span>
+    </div>
+
+    <div style="text-align: center;width: auto;height: auto;margin: auto">
+        <p th:text="'路径: ' + ${path}" />
+        <p th:text="'错误: ' + ${error}" />
+        <p th:text="'状态码: ' + ${status}" />
+        <p th:text="'异常类型: ' + ${exception}" />
+        <p th:text="'异常信息: ' + ${message}" />
+        <p th:text="'时间: ' + ${#dates.format(timestamp,'yyyy-MM-dd HH:mm:ss')}" />
+    </div>
+</body>
+</html>

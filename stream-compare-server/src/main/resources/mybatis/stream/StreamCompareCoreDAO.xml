@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sugon.gsq.scs.dao.StreamCompareCoreDAO">
+  <resultMap id="BaseResultMap" type="com.sugon.gsq.scs.entity.stream.StreamCompareCoreEntity">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="stormTaskSource" jdbcType="VARCHAR" property="stormTaskSource" />
+    <result column="blacklistSource" jdbcType="VARCHAR" property="blacklistSource" />
+    <result column="compareField" jdbcType="VARCHAR" property="compareField" />
+    <result column="compareFieldOfJdbc" jdbcType="VARCHAR" property="compareFieldOfJdbc" />
+    <result column="sign" jdbcType="INTEGER" property="sign" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, stormTaskSource, blacklistSource, compareField, compareFieldOfJdbc, sign
+  </sql>
+  <select id="selectByExample" parameterType="com.sugon.gsq.scs.entity.stream.StreamCompareCoreEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from s_compare_core
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_compare_core
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from s_compare_core
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sugon.gsq.scs.entity.stream.StreamCompareCoreEntityExample">
+    delete from s_compare_core
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sugon.gsq.scs.entity.stream.StreamCompareCoreEntity">
+    insert into s_compare_core (id, stormTaskSource, blacklistSource, 
+      compareField, compareFieldOfJdbc, sign
+      )
+    values (#{id,jdbcType=VARCHAR}, #{stormTaskSource,jdbcType=VARCHAR}, #{blacklistSource,jdbcType=VARCHAR}, 
+      #{compareField,jdbcType=VARCHAR}, #{compareFieldOfJdbc,jdbcType=VARCHAR}, #{sign,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sugon.gsq.scs.entity.stream.StreamCompareCoreEntity">
+    insert into s_compare_core
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="stormTaskSource != null">
+        stormTaskSource,
+      </if>
+      <if test="blacklistSource != null">
+        blacklistSource,
+      </if>
+      <if test="compareField != null">
+        compareField,
+      </if>
+      <if test="compareFieldOfJdbc != null">
+        compareFieldOfJdbc,
+      </if>
+      <if test="sign != null">
+        sign,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="stormTaskSource != null">
+        #{stormTaskSource,jdbcType=VARCHAR},
+      </if>
+      <if test="blacklistSource != null">
+        #{blacklistSource,jdbcType=VARCHAR},
+      </if>
+      <if test="compareField != null">
+        #{compareField,jdbcType=VARCHAR},
+      </if>
+      <if test="compareFieldOfJdbc != null">
+        #{compareFieldOfJdbc,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        #{sign,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sugon.gsq.scs.entity.stream.StreamCompareCoreEntityExample" resultType="java.lang.Long">
+    select count(*) from s_compare_core
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update s_compare_core
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stormTaskSource != null">
+        stormTaskSource = #{record.stormTaskSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blacklistSource != null">
+        blacklistSource = #{record.blacklistSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.compareField != null">
+        compareField = #{record.compareField,jdbcType=VARCHAR},
+      </if>
+      <if test="record.compareFieldOfJdbc != null">
+        compareFieldOfJdbc = #{record.compareFieldOfJdbc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sign != null">
+        sign = #{record.sign,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update s_compare_core
+    set id = #{record.id,jdbcType=VARCHAR},
+      stormTaskSource = #{record.stormTaskSource,jdbcType=VARCHAR},
+      blacklistSource = #{record.blacklistSource,jdbcType=VARCHAR},
+      compareField = #{record.compareField,jdbcType=VARCHAR},
+      compareFieldOfJdbc = #{record.compareFieldOfJdbc,jdbcType=VARCHAR},
+      sign = #{record.sign,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sugon.gsq.scs.entity.stream.StreamCompareCoreEntity">
+    update s_compare_core
+    <set>
+      <if test="stormTaskSource != null">
+        stormTaskSource = #{stormTaskSource,jdbcType=VARCHAR},
+      </if>
+      <if test="blacklistSource != null">
+        blacklistSource = #{blacklistSource,jdbcType=VARCHAR},
+      </if>
+      <if test="compareField != null">
+        compareField = #{compareField,jdbcType=VARCHAR},
+      </if>
+      <if test="compareFieldOfJdbc != null">
+        compareFieldOfJdbc = #{compareFieldOfJdbc,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        sign = #{sign,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sugon.gsq.scs.entity.stream.StreamCompareCoreEntity">
+    update s_compare_core
+    set stormTaskSource = #{stormTaskSource,jdbcType=VARCHAR},
+      blacklistSource = #{blacklistSource,jdbcType=VARCHAR},
+      compareField = #{compareField,jdbcType=VARCHAR},
+      compareFieldOfJdbc = #{compareFieldOfJdbc,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
