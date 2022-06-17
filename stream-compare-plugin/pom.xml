@@ -14,7 +14,7 @@
         <storm-core.version>1.2.1</storm-core.version>
         <kafka-client.version>1.1.0</kafka-client.version>
         <kafka_2.11.version>1.0.0</kafka_2.11.version>
-        <fastjson.version>1.2.56</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <mysql-driver.version>5.1.45</mysql-driver.version>
         <project.sourceEncoding>UTF-8</project.sourceEncoding>
     </properties>
